@@ -18,37 +18,41 @@ async function connectToWhatsApp () {
   if (!chat.hasNewMessage) return;
   const msg = chat.messages.all()[0];
   if (msg.key.fromMe) return;
-  const commands = msg.message.conversation.split(' ')[0];
-  let options;
-  const args = msg.message.conversation.split(' ')[2];
-  if (commands == "daftar") {
-   const userBuffer = fs.readFileSync('data/user.json', 'utf8');
-   options = msg.message.conversation.split('-')[1];
-   let data = {
-    remoteJid: msg.key.remoteJid,
-    nama: options
-   }
-   const user = JSON.parse(userBuffer);
-   await user.forEach(usr=> {
-    if (usr["remoteJid"] == data["remoteJid"]) {
-     data = null
-     conn.sendMessage(msg.key.remoteJid, `mohon maaf! ${msg.key.remoteJid} telah digunakan oleh ${usr.nama}.`, MessageType.text)
-    }
-   })
-   user.push(data);
-   fs.writeFileSync('data/user.json',
-    JSON.stringify(user));
-   conn.sendMessage(msg.key.remoteJid,
-    `terima kasih! ${options} telah terdaftar di sistem kami.`,
-    MessageType.text);
+  const pesan = msg.message.conversation.split(' ');
+  const command = pesan[0];
+  var options = pesan[1];
+  const args = pesan.slice(0, 1);
+  if (command == 'daftar') {
+   daftarHandler(conn, msg);
+  } else {
+   conn.sendMessage(msg.key.remoteJid, `format ${command} tidak tersedia`, MessageType.text);
   }
-  // if (msg.message.conversation == "list") {
-  //  conn.sendMessage(msg.key.remoteJid, button, MessageType.listMessage);
-  // }
-  // if (msg.message.conversation == "button") {
-  //  conn.sendMessage(msg.key.remoteJid, buttonMessage, MessageType.buttonsMessage);
-  // }
- })
+ });
+}
+//pendaftaran
+function daftarHandler(conn, msg) {
+ const userBuffer = fs.readFileSync('data/user.json',
+  'utf-8');
+ var options = msg.message.conversation.split('-')[1];
+ let data = {
+  remoteJid: msg.key.remoteJid,
+  nama: options.toUpperCase()
+ }
+ const user = JSON.parse(userBuffer);
+ let duplikat = user.find(r=>r.remoteJid == data.remoteJid);
+ let noHP = msg.key.remoteJid.split('@')[0];
+ console.log(duplikat)
+ if (!duplikat) {
+  user.push(data);
+  fs.writeFileSync('data/user.json',
+   JSON.stringify(user));
+  conn.sendMessage(msg.key.remoteJid,
+   `terima kasih! ${data.nama} telah terdaftar di sistem kami dengan no hp: ${noHP}.`,
+   MessageType.text);
+ } else {
+  conn.sendMessage(msg.key.remoteJid, `mohon maaf! no ${noHP} telah digunakan oleh ${duplikat.nama}.`,
+   MessageType.text)
+ }
 }
 // run in main file
 connectToWhatsApp ()
