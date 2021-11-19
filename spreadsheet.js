@@ -53,16 +53,18 @@ function spreadsheet(keyFile, spreadsheetId) {
 
 const ss = new spreadsheet("node-spreadsheet-test-332512-f2b8dbb2c308.json", "1vuKyr1A8Vjnz3O48AE9gHNrTSCZ2oaaMNOc2EWjsp5Q");
 
-async function start() {
- const b = await ss.getRows("Sheet1!a2:c4");
- console.log(b);
- const c = await ss.getDataByNama("Sheet1!a2:c4", "Zakaria");
- console.log(c);
- const data = ["1", "Ganjaran","Yaqdan Siroj"];
- ss.addData("Sheet1!a:c", data)
-}
+// async function start() {
+//  const b = await ss.getRows("Sheet1!a2:c4");
+//  console.log(b);
+//  const c = await ss.getDataByNama("Sheet1!a2:c4", "Zakaria");
+//  console.log(c);
+//  const data = ["1",
+//   "Ganjaran",
+//   "Yaqdan Siroj"];
+//  ss.addData("Sheet1!a:c", data)
+// }
 
-start();
-// module.exports = {
-//  ss
-// };
+// start();
+module.exports = {
+ ss
+};
