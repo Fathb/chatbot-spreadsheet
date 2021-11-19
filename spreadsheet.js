@@ -35,7 +35,20 @@ function spreadsheet(keyFile, spreadsheetId) {
   })
   return b;
  };
- this.addData = function() {};
+ this.addData = async function(range, data = []) {
+  googlesheets.spreadsheets.values.append({
+   auth,
+   spreadsheetId: this.spreadsheetId,
+   range,
+   valueInputOption: "USER_ENTERED",
+   resource: {
+    values: [
+     data
+    ]
+   }
+  });
+  return console.log(data+"berhasil di tambahkan");
+ };
 }
 
 const ss = new spreadsheet("node-spreadsheet-test-332512-f2b8dbb2c308.json", "1vuKyr1A8Vjnz3O48AE9gHNrTSCZ2oaaMNOc2EWjsp5Q");
@@ -45,6 +58,8 @@ async function start() {
  console.log(b);
  const c = await ss.getDataByNama("Sheet1!a2:c4", "Zakaria");
  console.log(c);
+ const data = ["1", "Ganjaran","Yaqdan Siroj"];
+ ss.addData("Sheet1!a:c", data)
 }
 
 start();
