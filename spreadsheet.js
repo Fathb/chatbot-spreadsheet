@@ -28,9 +28,12 @@ function spreadsheet(keyFile, spreadsheetId) {
   });
   return data.data.values
  };
- this.getDataById = async function(range, id) {
-  const data = await this.getRows(range).find((a)=>a.id == id);
-  return data
+ this.getDataByNama = async function(range, nama) {
+  var data = await this.getRows(range);
+  const b = await data.find(a=> {
+   return a[2] == nama;
+  })
+  return b;
  };
  this.addData = function() {};
 }
@@ -39,7 +42,9 @@ const ss = new spreadsheet("node-spreadsheet-test-332512-f2b8dbb2c308.json", "1v
 
 async function start() {
  const b = await ss.getRows("Sheet1!a2:c4");
- console.log(b)
+ console.log(b);
+ const c = await ss.getDataByNama("Sheet1!a2:c4", "Zakaria");
+ console.log(c);
 }
 
 start();
