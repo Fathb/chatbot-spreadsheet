@@ -3,7 +3,9 @@ const {
  WAConnection
 } = require('@adiwajshing/baileys');
 const fs = require('fs');
-
+const {
+ ss
+} = require('./spreadsheet');
 async function connectToWhatsApp () {
  const conn = new WAConnection();
  conn.loadAuthInfo ('./auth_info.json');
