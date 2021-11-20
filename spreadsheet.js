@@ -47,7 +47,6 @@ function spreadsheet(keyFile, spreadsheetId) {
     ]
    }
   });
-  return console.log(data+"berhasil di tambahkan");
  };
 }
 

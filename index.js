@@ -1,11 +1,12 @@
 const handler = require("./handler.js");
 const {
- WAConnection
+ WAConnection,
+ MessageType
 } = require('@adiwajshing/baileys');
 const fs = require('fs');
 async function connectToWhatsApp () {
  const conn = new WAConnection();
- conn.loadAuthInfo ('./auth_info.json');
+ conn.loadAuthInfo('./auth_info.json')
  // conn.on ('open', () => {
  //  // save credentials whenever updated
  //  console.log (`credentials updated!`)
@@ -28,8 +29,6 @@ async function connectToWhatsApp () {
   }
  });
 }
-//pendaftaran
-
 // run in main file
 connectToWhatsApp ()
-.catch (err => console.log("unexpected error: " + err)) // catch any errors
+.catch (err => console.log("unexpected error: " + err)); // catch any errors
