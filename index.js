@@ -18,14 +18,15 @@ async function connectToWhatsApp () {
   if (!chat.hasNewMessage) return;
   const msg = chat.messages.all()[0];
   if (msg.key.fromMe) return;
-  const pesan = msg.message.conversation.split(' ');
-  const command = pesan[0];
+  const pesan = msg.message.conversation;
+  const command = /!\w*/y.exec(pesan);
   var options = pesan[1];
   const args = pesan.slice(0, 1);
-  if (command == 'daftar') {
-   handler.daftar(conn, msg);
+  if (command == '!daftar') {
+   console.log('berhasil')
+   // handler.daftar(conn, msg);
   } else {
-   conn.sendMessage(msg.key.remoteJid, `format ${command} tidak tersedia`, MessageType.text);
+   conn.sendMessage(msg.key.remoteJid, "Selamat datang di sistem layanan informasi MI RAUDLATUL ULUM PUTRA via WHATSAPP, \n ketik *!panduan* untuk menggunakan layanan ini", MessageType.text);
   }
  });
 }

@@ -8,12 +8,7 @@ const {
 
 module.exports = {
  daftar: async function (conn, msg) {
-  var args = msg.message.conversation.split(' ');
-  args.splice(0, 1);
-  args = args.join(' ');
-  args = args.split('-');
-  const nama = args[1].toUpperCase();
-  args.splice(0, 2);
+  var args = msg.message.conversation;
   var noHP = msg.key.remoteJid.split('@')[0];
   var data = [
    noHP,
