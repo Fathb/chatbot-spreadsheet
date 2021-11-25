@@ -6,7 +6,7 @@ const {
 const fs = require('fs');
 async function connectToWhatsApp () {
  const conn = new WAConnection();
- conn.loadAuthInfo('./auth_info.json')
+ await conn.loadAuthInfo('./auth_info.json');
  // conn.on ('open', () => {
  //  // save credentials whenever updated
  //  console.log (`credentials updated!`)
@@ -20,13 +20,43 @@ async function connectToWhatsApp () {
   if (msg.key.fromMe) return;
   const pesan = msg.message.conversation;
   const command = /!\w*/y.exec(pesan);
-  var options = pesan[1];
-  const args = pesan.slice(0, 1);
+  const option = pesan.match(/#\w*/g);
+  let data = pesan.match(/:[\w ]+/gm);
+  if (data) {
+   data = data.map(d=> {
+    return d.replace(/^:|\s$/gm, '');
+   });
+  }
+  let listCmd = ["!daftar",
+   "!izin",
+   "!list",
+   "!info"];
+  let cmd = listCmd.find(c => {
+   return c == command;
+  });
+  let sendMessage = function(message) {
+   conn.sendMessage(msg.key.remoteJid, message, MessageType.text);
+  }
+
+  // routes
   if (command == '!daftar') {
-   console.log('berhasil')
-   // handler.daftar(conn, msg);
-  } else {
-   conn.sendMessage(msg.key.remoteJid, "Selamat datang di sistem layanan informasi MI RAUDLATUL ULUM PUTRA via WHATSAPP, \n ketik *!panduan* untuk menggunakan layanan ini", MessageType.text);
+   handler.daftar(conn, msg, data);
+  }
+  if (command == '!izin') {
+   conn.sendMessage(msg.key.remoteJid, `menu ${command} masih dalam proses perbaikan`, MessageType.text);
+  }
+  if (command == '!list') {
+   handler.listSiswa(conn, msg.key.remoteJid, data);
+  }
+  if (command == '!info') {
+   handler.info(conn, msg, option, data);
+  }
+  if (command && !cmd) {
+   conn.sendMessage(msg.key.remoteJid, `menu ${command} tidak tersedia.\nketik *!panduan* untuk cara menggunakan layanan ini `, MessageType.text);
+  }
+  if (!command) {
+   conn.sendMessage(msg.key.remoteJid, "Selamat datang di sistem layanan informasi MI RAUDLATUL ULUM PUTRA via WHATSAPP, \nketik *!panduan* untuk cara menggunakan layanan ini", MessageType.text);
+   return
   }
  });
 }

@@ -50,7 +50,7 @@ function spreadsheet(keyFile, spreadsheetId) {
  };
 }
 
-const ss = new spreadsheet("node-spreadsheet-test-332512-f2b8dbb2c308.json", "1vuKyr1A8Vjnz3O48AE9gHNrTSCZ2oaaMNOc2EWjsp5Q");
+const ss = new spreadsheet("mirupa-10885-1a83c654dffd.json", "1fVZvPReIjRFsV2ttfQ5kortFyyqpxZsuxA1G5tjKsHg");
 
 // async function start() {
 //  const b = await ss.getRows("Sheet1!a2:c4");
