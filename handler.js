@@ -52,22 +52,47 @@ module.exports = {
   msg,
   option,
   args) {
-  // cek user exist
-  let noHP = msg.key.remoteJid.split("@")[0];
-  let listNoHp = await ss.getRows('users!a2:a');
   if (option[0].toLowerCase() == "#jadwal") {
    let jadwal = await ss.getRows("jadwal!a2:e349");
    let dataJadwal = [];
-   var i = 1;
+   let i = 1;
    await jadwal.forEach(jdw=> {
     if (jdw[1] == args[0] && jdw[0] == args[1]) {
-     dataJadwal.push([`${i++} | ${jdw[1]} | ${jdw[2]} | ${jdw[3]} | ${jdw[4]}`]);
+     dataJadwal.push([i++, jdw[2], jdw[3], jdw[4]]);
     }
    })
    console.log(dataJadwal);
    conn.sendMessage(msg.key.remoteJid,
     dataJadwal.toString().replace(/,/gm, '\n'),
     MessageType.text);
+  }
+  if (option[0].toLowerCase() == "#pembayaran") {
+   // cek no hp exist
+   let noHP = msg.key.remoteJid.split("@")[0];
+   let dataUsers = await ss.getRows('users!a2:b');
+   let userExist;
+   dataUsers.forEach(usr=> {
+    if (usr[0] == noHP) {
+     userExist = usr;
+    }
+   });
+   if (!userExist) {
+    // kirim pesan
+    return;
+   }
+   let dataPembayaranUser = [];
+   if (userExist) {
+    let dataPembayaran = await ss.getRows("pembayaran!a3:o");
+    let n =1;
+    await dataPembayaran.forEach(byr=> {
+     if (byr[2] == userExist[1]) {
+      dataPembayaranUser.push([`pembayaran ${n++}\ntanggal ${byr[3]}\nraport ${byr[5]}\nBuku|lks ${byr[6]}\nPTS ${byr[7]}\nPAS|PAT ${byr[8]}\nIuran Akhir Tahun ${byr[9]}\nKostim ${byr[10]}\nINFAQ ${byr[11]}\nJUMLAH ${byr[12]}\n`]);
+     }
+    });
+   }
+   if (dataPembayaranUser.length > 0) {
+    conn.sendMessage(msg.key.remoteJid, dataPembayaranUser.toString().replace(/,/gm, '\n')+`\ntotal pembayaran ${dataPembayaranUser[0][12]+dataPembayaranUser[1][12]}`, MessageType.text);
+   }
   }
  }
 };

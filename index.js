@@ -34,9 +34,6 @@ async function connectToWhatsApp () {
   let cmd = listCmd.find(c => {
    return c == command;
   });
-  let sendMessage = function(message) {
-   conn.sendMessage(msg.key.remoteJid, message, MessageType.text);
-  }
 
   // routes
   if (command == '!daftar') {
