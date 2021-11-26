@@ -61,7 +61,19 @@ module.exports = {
      dataJadwal.push([i++, jdw[2], jdw[3], jdw[4]]);
     }
    })
-   console.log(dataJadwal);
+   conn.sendMessage(msg.key.remoteJid,
+    dataJadwal.toString().replace(/,/gm, '\n'),
+    MessageType.text);
+  }
+  if (option[0].toLowerCase() == "#jadwalpas") {
+   let jadwal = await ss.getRows("jadwalpas!a2:e86");
+   let dataJadwal = [];
+   let i = "___________";
+   await jadwal.forEach(jdw=> {
+    if (jdw[0] == args[0]) {
+     dataJadwal.push([i, jdw[1], jdw[2], jdw[3], jdw[4]]);
+    }
+   })
    conn.sendMessage(msg.key.remoteJid,
     dataJadwal.toString().replace(/,/gm, '\n'),
     MessageType.text);
@@ -77,13 +89,13 @@ module.exports = {
     }
    });
    if (!userExist) {
-    // kirim pesan
+    conn.sendMessage(msg.key.remoteJid, "no anda belum terdaftar!", MessageType.text)
     return;
    }
    let dataPembayaranUser = [];
    if (userExist) {
     let dataPembayaran = await ss.getRows("pembayaran!a3:o");
-    let n =1;
+    let n = 1;
     await dataPembayaran.forEach(byr=> {
      if (byr[2] == userExist[1]) {
       dataPembayaranUser.push([`pembayaran ${n++}\ntanggal ${byr[3]}\nraport ${byr[5]}\nBuku|lks ${byr[6]}\nPTS ${byr[7]}\nPAS|PAT ${byr[8]}\nIuran Akhir Tahun ${byr[9]}\nKostim ${byr[10]}\nINFAQ ${byr[11]}\nJUMLAH ${byr[12]}\n`]);
@@ -91,7 +103,7 @@ module.exports = {
     });
    }
    if (dataPembayaranUser.length > 0) {
-    conn.sendMessage(msg.key.remoteJid, dataPembayaranUser.toString().replace(/,/gm, '\n')+`\ntotal pembayaran ${dataPembayaranUser[0][12]+dataPembayaranUser[1][12]}`, MessageType.text);
+    conn.sendMessage(msg.key.remoteJid, dataPembayaranUser.toString().replace(/,/gm, '\n')+`\ntotal pembayaran ${dataPembayaranUser[0][12]+dataPemba}`, MessageType.text);
    }
   }
  }
