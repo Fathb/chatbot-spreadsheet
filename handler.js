@@ -57,7 +57,7 @@ module.exports = {
    let dataJadwal = [];
    let i = 1;
    await jadwal.forEach(jdw=> {
-    if (jdw[1] == args[0] && jdw[0] == args[1]) {
+    if (jdw[1].toLowerCase() == args[0].toLowerCase() && jdw[0].toLowerCase() == args[1].toLowerCase()) {
      dataJadwal.push([i++, jdw[2], jdw[3], jdw[4]]);
     }
    })
