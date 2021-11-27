@@ -47,7 +47,9 @@ async function connectToWhatsApp () {
    handler.listSiswa(conn, msg.key.remoteJid, data);
   }
   if (command == '!info') {
-   handler.info(conn, msg, option, data);
+   handler.info(conn, msg, option, data).catch(err=>{
+    console.log(err)
+   });
   }
   if (command == '!panduan') {
    conn.sendMessage(msg.key.remoteJid, `berikut daftar menu layanan informasi yang tersedia di sini.\n*info jadwal KBM*\nketik\n!info #jadwal :Hari :kelas\ncontoh\n!info #jadwal :Ahad :6A\n\n*info jadwal PAS*\nketik\n!info #jadwalpas :kelas\ncontoh\n!info #jadwalpas :6\n\n*info pembayaran*\nuntuk melihat pembayaran, nomor wa yg digunakan harus terdaftar terlebih dahalu dengan nama siswa yang sudah ada di sistem. untuk melihat nama siswa yang sudah ada ada sistem ketikkan\n!list :kelas\ncontoh\n!list :6A\nsetelah itu ketik\n!daftar :Nama Siswa :kelas\ncontoh\n!daftar :Muhammad Rofasya Gibran :3\nuntuk penulisan nama harus sama persis dengan yang ada pada list/daftar siswa pada menu !list baik huruf kapital (besar), titik dan sebagainya. 1 nomer hanya bisa digunakan untuk 1 siswa. setelah terdaftar, untuk melihat data pembayaran, baik yang telah dibayarkan dan sisa tunggakan silahkan ketik\n!info #pembayaran\n\ndemikian informasi ini semoga bermanfaat`, MessageType.text);

@@ -81,15 +81,17 @@ module.exports = {
   if (option[0].toLowerCase() == "#pembayaran") {
    // cek no hp exist
    let noHP = msg.key.remoteJid.split("@")[0];
-   let dataUsers = await ss.getRows('users!a2:b');
+   let dataUsers = await ss.getRows('users!a2:c');
    let userExist;
-   dataUsers.forEach(usr=> {
-    if (usr[0] == noHP) {
-     userExist = usr;
-    }
-   });
+   if (dataUsers) {
+    dataUsers.forEach(usr=> {
+     if (usr[0] == noHP) {
+      userExist = usr;
+     }
+    });
+   }
    if (!userExist) {
-    conn.sendMessage(msg.key.remoteJid, "no anda belum terdaftar!", MessageType.text)
+    conn.sendMessage(msg.key.remoteJid, "no anda belum terdaftar!", MessageType.text);
     return;
    }
    let dataPembayaranUser = [];
@@ -98,13 +100,42 @@ module.exports = {
     let n = 1;
     await dataPembayaran.forEach(byr=> {
      if (byr[2] == userExist[1]) {
-      dataPembayaranUser.push([`pembayaran ${n++}\ntanggal ${byr[3]}\nraport ${byr[5]}\nBuku|lks ${byr[6]}\nPTS ${byr[7]}\nPAS|PAT ${byr[8]}\nIuran Akhir Tahun ${byr[9]}\nKostim ${byr[10]}\nINFAQ ${byr[11]}\nJUMLAH ${byr[12]}\n`]);
+      dataPembayaranUser.push([byr[3],
+       parseInt(byr[5])*1000,
+       parseInt(byr[6])*1000,
+       parseInt(byr[7])*1000,
+       parseInt(byr[8])*1000,
+       parseInt(byr[9])*1000,
+       parseInt(byr[10])*1000,
+       parseInt(byr[11])*1000,
+       parseInt(byr[12]*1000)
+      ]);
      }
     });
    }
-   if (dataPembayaranUser.length > 0) {
-    conn.sendMessage(msg.key.remoteJid, dataPembayaranUser.toString().replace(/,/gm, '\n')+`\ntotal pembayaran ${dataPembayaranUser[0][12]+dataPemba}`, MessageType.text);
+   let totalTghTh;
+   switch (userExist[2]) {
+    case '4':
+     totalTghTh =495000;
+     break;
+    case '3':
+     totalTghTh = 435000;
+     break;
+    case '6':
+     totalTghTh = 1100000;
+     break;
+    default:
+     totalTghTh = 560000;
+    }
+    let sisaTgh = totalTghTh - (dataPembayaranUser[0][8] - dataPembayaranUser[0][7]);
+    if (sisaTgh == 0) {
+     sisaTgh = 'LUNAS';
+    }
+    console.log(sisaTgh);
+    console.log(totalTghTh);
+    if (dataPembayaranUser.length > 0) {
+     conn.sendMessage(msg.key.remoteJid, dataPembayaranUser.toString().replace(/,/gm, '\n')+`\nsisa tagihan tahunan = ${sisaTgh}`, MessageType.text);
+    }
    }
   }
- }
-};
+ };
