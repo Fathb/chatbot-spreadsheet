@@ -40,7 +40,7 @@ module.exports = {
   var ls = [];
   var i = 1;
   listSiswa.forEach(a=> {
-   if (a[1] == args[0]) {
+   if (a[1] == args[0].toUpperCase()) {
     ls.push(`${i++} ${a[0]}`);
    }
   });
@@ -114,28 +114,40 @@ module.exports = {
     });
    }
    let totalTghTh;
-   switch (userExist[2]) {
-    case '4':
-     totalTghTh =495000;
-     break;
-    case '3':
-     totalTghTh = 435000;
-     break;
-    case '6':
-     totalTghTh = 1100000;
-     break;
-    default:
-     totalTghTh = 560000;
-    }
-    let sisaTgh = totalTghTh - (dataPembayaranUser[0][8] - dataPembayaranUser[0][7]);
-    if (sisaTgh == 0) {
-     sisaTgh = 'LUNAS';
-    }
-    console.log(sisaTgh);
-    console.log(totalTghTh);
-    if (dataPembayaranUser.length > 0) {
-     conn.sendMessage(msg.key.remoteJid, dataPembayaranUser.toString().replace(/,/gm, '\n')+`\nsisa tagihan tahunan = ${sisaTgh}`, MessageType.text);
-    }
+   let totalBayar;
+   if (userExist[2] == '3' || userExist[2] == '2') {
+    totalTghTh = 435000;
+   }
+   if (userExist[2] == '5' || userExist[2] == '4') {
+    totalTghTh = 495000;
+   }
+   if (userExist[2] == '6') {
+    totalTghTh = 1140000;
+   }
+   if (userExist[2] == '1') {
+    totalTghTh = 560000;
+   }
+   if (dataPembayaranUser.length > 0) {
+    dataPembayaranUser.forEach(dpu=> {
+     totalTghTh = totalTghTh - (dpu[8]-dpu[7]);
+     dpu[0] = 'tanggal : '+dpu[0];
+     dpu[1] = 'raport : '+dpu[1];
+     dpu[2] = 'LKS : '+dpu[2];
+     dpu[3] = 'PTS : '+dpu[3];
+     dpu[4] = 'PAS/PAT : '+dpu[4];
+     dpu[5] = 'IURAN AKHIR TAHUN : '+dpu[5];
+     dpu[6] = 'KOSTIM : '+dpu[6];
+     dpu[7] = 'INFAQ : '+dpu[7];
+     dpu[8] = 'TOTAL : '+dpu[8]+'\n';
+    });
+   }
+   if (totalTghTh == 0) {
+    totalTghTh = 'LUNAS';
+   }
+   console.log(totalTghTh);
+   if (dataPembayaranUser.length > 0) {
+    conn.sendMessage(msg.key.remoteJid, `data pembayaran siswa atas nama ${userExist[1]}\n\n`+dataPembayaranUser.toString().replace(/,/gm, '\n')+`\nsisa tagihan tahunan = ${totalTghTh}`, MessageType.text);
    }
   }
- };
+ }
+};
