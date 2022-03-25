@@ -22,6 +22,7 @@
  "homepage": "https://github.com/Fathb/chatbot#readme",
  "dependencies": {
   "@adiwajshing/baileys": "^3.5.3",
-  "googleapis": "^91.0.0"
+  "googleapis": "^91.0.0",
+  "node-fetch": "^2.6.7"
  }
 }

@@ -1,56 +1,56 @@
-const {
- google
-} = require ('googleapis');
+const { google } = require("googleapis");
 
 function spreadsheet(keyFile, spreadsheetId) {
- this.spreadsheetId = spreadsheetId;
- this.keyFile = keyFile
- const auth = new google.auth.GoogleAuth({
-  keyFile: this.keyFile,
-  scopes: 'https://www.googleapis.com/auth/spreadsheets'
- })
-
- //client instance
- const client = auth.getClient();
-
- //spreadsheets instance
- const googlesheets = google.sheets({
-  version: 'v4', auth: client
- });
-
- //'1vuKyr1A8Vjnz3O48AE9gHNrTSCZ2oaaMNOc2EWjsp5Q';
-
- this.getRows = async function(range) {
-  const data = await googlesheets.spreadsheets.values.get({
-   auth,
-   spreadsheetId: this.spreadsheetId,
-   range
+  this.spreadsheetId = spreadsheetId;
+  this.keyFile = keyFile;
+  const auth = new google.auth.GoogleAuth({
+    keyFile: this.keyFile,
+    scopes: "https://www.googleapis.com/auth/spreadsheets",
   });
-  return data.data.values
- };
- this.getDataByNama = async function(range, nama) {
-  var data = await this.getRows(range);
-  const b = await data.find(a=> {
-   return a[2] == nama;
-  })
-  return b;
- };
- this.addData = async function(range, data = []) {
-  googlesheets.spreadsheets.values.append({
-   auth,
-   spreadsheetId: this.spreadsheetId,
-   range,
-   valueInputOption: "USER_ENTERED",
-   resource: {
-    values: [
-     data
-    ]
-   }
+
+  //client instance
+  const client = auth.getClient();
+
+  //spreadsheets instance
+  const googlesheets = google.sheets({
+    version: "v4",
+    auth: client,
   });
- };
+
+  //'1vuKyr1A8Vjnz3O48AE9gHNrTSCZ2oaaMNOc2EWjsp5Q';
+
+  this.getRows = async function (range) {
+    const data = await googlesheets.spreadsheets.values.get({
+      auth,
+      spreadsheetId: this.spreadsheetId,
+      range,
+    });
+    return data.data.values;
+  };
+  this.getDataByNama = async function (range, nama) {
+    var data = await this.getRows(range);
+    const b = await data.find((a) => {
+      return a[2] == nama;
+    });
+    return b;
+  };
+  this.addData = async function (range, data = []) {
+    googlesheets.spreadsheets.values.append({
+      auth,
+      spreadsheetId: this.spreadsheetId,
+      range,
+      valueInputOption: "USER_ENTERED",
+      resource: {
+        values: [data],
+      },
+    });
+  };
 }
 
-const ss = new spreadsheet("mirupa-10885-1a83c654dffd.json", "1fVZvPReIjRFsV2ttfQ5kortFyyqpxZsuxA1G5tjKsHg");
+const ss = new spreadsheet(
+  "mirupa-10885-1a83c654dffd.json",
+  "1fVZvPReIjRFsV2ttfQ5kortFyyqpxZsuxA1G5tjKsHg"
+);
 
 // async function start() {
 //  const b = await ss.getRows("Sheet1!a2:c4");
@@ -65,5 +65,6 @@ const ss = new spreadsheet("mirupa-10885-1a83c654dffd.json", "1fVZvPReIjRFsV2ttf
 
 // start();
 module.exports = {
- ss
+  ss,
 };
+

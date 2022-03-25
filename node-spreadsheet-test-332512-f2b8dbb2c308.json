@@ -10,3 +10,27 @@
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/node-ss-test%40node-spreadsheet-test-332512.iam.gserviceaccount.com"
 }
+
+{
+  "level":10,
+  "fromMe":false,
+  "frame": {
+    "tag":"ib",
+    "attrs": {
+      "from":"@s.whatsapp.net"
+    },
+    "content":[{
+      "tag":"edge_routing",
+      "attrs": {},
+      "content":[{
+        "tag":"routing_info",
+        "attrs": {},
+        "content": {
+          "type":"Buffer",
+          "data":[8,2,8,5]
+        }
+      }]
+    }]
+  },
+  "msg":"communication"
+}
