@@ -18,6 +18,7 @@ async function connectToWhatsApp() {
   conn.on("chat-update", async (chat) => {
     if (!chat.hasNewMessage) return;
     const msg = chat.messages.all()[0];
+    if (msg.key.remoteJid == "status@broadcast")return;
     if (msg.key.fromMe) return;
     const pesan = msg.message.conversation;
     const command = /!\w*/y.exec(pesan);
