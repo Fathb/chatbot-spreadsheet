@@ -1,4 +1,6 @@
-const { google } = require("googleapis");
+const {
+  google
+} = require("googleapis");
 
 function spreadsheet(keyFile, spreadsheetId) {
   this.spreadsheetId = spreadsheetId;
@@ -35,7 +37,7 @@ function spreadsheet(keyFile, spreadsheetId) {
     return b;
   };
   this.addData = async function (range, data = []) {
-    googlesheets.spreadsheets.values.append({
+    await googlesheets.spreadsheets.values.append({
       auth,
       spreadsheetId: this.spreadsheetId,
       range,
@@ -48,8 +50,8 @@ function spreadsheet(keyFile, spreadsheetId) {
 }
 
 const ss = new spreadsheet(
-  "mirupa-10885-1a83c654dffd.json",
-  "1fVZvPReIjRFsV2ttfQ5kortFyyqpxZsuxA1G5tjKsHg"
+  "whabot-360815-df9519a43e43.json",
+  "1jrW7YQA31yF8IM7LqPR1XqTmd5rHgAAdorVcI9pWWa8"
 );
 
 // async function start() {
@@ -67,4 +69,3 @@ const ss = new spreadsheet(
 module.exports = {
   ss,
 };
-

@@ -10,7 +10,9 @@ let helper = require("./helper");
 
 async function daftar(conn, msg, args) {
   if (!args) {
-    conn.sendMessage(msg.key.remoteJid, `ketik *!panduan* untuk panduan secara umum\nketik *!info #pendaftaran* untuk pendaftaran siswa baru`, MessageType.text);
+    conn.sendMessage(msg.key.remoteJid, {
+      text: `ketik *!panduan* untuk panduan secara umum\nketik *!info #pendaftaran* untuk pendaftaran siswa baru`
+    });
     return;
   }
   var noHP = msg.key.remoteJid.split('@')[0];
@@ -31,11 +33,13 @@ async function daftar(conn, msg, args) {
   if (!duplikat) {
     ss.addData("users!$a:c", data);
     conn.sendMessage(msg.key.remoteJid,
-      `terima kasih! ${args[0]} telah terdaftar di sistem kami dengan no hp: ${noHP}.`,
-      MessageType.text);
+      {
+        text: `terima kasih! ${args[0]} telah terdaftar di sistem kami dengan no hp: ${noHP}.`
+      });
   } else {
-    conn.sendMessage(msg.key.remoteJid, `mohon maaf! no ${noHP} telah digunakan oleh ${duplikat[0]}.`,
-      MessageType.text);
+    conn.sendMessage(msg.key.remoteJid, {
+      text: `mohon maaf! no ${noHP} telah digunakan oleh ${duplikat[0]}.`
+    });
   }
 }
 
@@ -45,20 +49,23 @@ module.exports = {
   async formulir(conn, msg, data) {
     var noHP = msg.key.remoteJid.split('@')[0];
     data.unshift(null, null);
-    ss.addData("data-siswa-lengkap!C", data);
-    setTimeout(function() {
-      fetch('https://script.google.com/macros/s/AKfycbwUZQIngTX-JbhT25zyiqX6cjaPzlNQpjX7lkpLmVO2XeyojRUNEMkcU1oZi5G1y63Cog/exec?namafile='+data[4], {
-        method: 'post'
-      }).then(res=>res.json()).then(res=> {
-        conn.sendMessage(msg.key.remoteJid, `terma kasih telah mendaftar di MI Raudlatul Ulum Putra\nsiapkan berkas-berkas persyaratan (FC KK, FC akte kelahiran kelahiran, dan foto 3x4)\nformulir bisa dilihat di ${res}`, MessageType.text)
-        daftar(conn, msg, [data[2], data[6]])
+    await ss.addData("test!C", data);
+    fetch('https://script.google.com/macros/s/AKfycbz8y9P0EqMLOfENYLYMtITGOv-am2GhK9-w09WukyB3V3FyZ-EDFoB9SGZavlap6HEraw/exec?namafile='+data[4], {
+      method: 'post'
+    }).then(res=>res.json()).then(res=> {
+      console.log(res);
+      conn.sendMessage(msg.key.remoteJid, {
+        text: `terma kasih telah mendaftar di MI Raudlatul Ulum Putra\nsiapkan berkas-berkas persyaratan (FC KK, FC akte kelahiran kelahiran, dan foto 3x4)\nformulir bisa dilihat di ${res}`
       })
-    }, 30000);
+      daftar(conn, msg, [data[2], data[6]])
+    });
   },
   izin(sendMessage, msg, args) {},
   listSiswa: async function(conn, remoteJid, args) {
     if (args == null) {
-      conn.sendMessage(remoteJid, `ketik *!panduan* untuk panduan secara umum\nketik *!info #pendaftaran* untuk pendaftaran siswa baru`, MessageType.text);
+      conn.sendMessage(remoteJid, {
+        text: `ketik *!panduan* untuk panduan secara umum\nketik *!info #pendaftaran* untuk pendaftaran siswa baru`
+      });
       return;
     }
     let listSiswa = await ss.getRows("data-siswa!a2:b219");
@@ -78,12 +85,16 @@ module.exports = {
     option,
     args) {
     if (option == null) {
-      conn.sendMessage(msg.key.remoteJid, `ketik *!panduan* untuk panduan secara umum\nketik *!info #pendaftaran* untuk pendaftaran siswa baru`, MessageType.text);
+      conn.sendMessage(msg.key.remoteJid, {
+        text: `ketik *!panduan* untuk panduan secara umum\nketik *!info #pendaftaran* untuk pendaftaran siswa baru`
+      });
       return;
     }
     if (option[0].toLowerCase() == "#jadwal") {
       if (args == null || args.length < 2) {
-        conn.sendMessage(msg.key.remoteJid, `ketik *!panduan* untuk panduan secara umum\nketik *!info #pendaftaran* untuk pendaftaran siswa baru`, MessageType.text);
+        conn.sendMessage(msg.key.remoteJid, {
+          text: `ketik *!panduan* untuk panduan secara umum\nketik *!info #pendaftaran* untuk pendaftaran siswa baru`
+        });
         return;
       }
       let jadwal = await ss.getRows("jadwal!a2:e349");
@@ -124,7 +135,9 @@ module.exports = {
         });
       }
       if (!userExist) {
-        conn.sendMessage(msg.key.remoteJid, "no anda belum terdaftar!", MessageType.text);
+        conn.sendMessage(msg.key.remoteJid, {
+          text: "no anda belum terdaftar!"
+        });
         return;
       }
       let dataPembayaranUser = [];
@@ -178,16 +191,24 @@ module.exports = {
         totalTghTh = 'LUNAS';
       }
       if (dataPembayaranUser.length > 0) {
-        conn.sendMessage(msg.key.remoteJid, `data pembayaran siswa atas nama ${userExist[1]}\n\n`+dataPembayaranUser.toString().replace(/,/gm, '\n')+`\nsisa tagihan tahunan = ${totalTghTh}`, MessageType.text);
+        conn.sendMessage(msg.key.remoteJid, {
+          text: `data pembayaran siswa atas nama ${userExist[1]}\n\n`+dataPembayaranUser.toString().replace(/,/gm, '\n')+`\nsisa tagihan tahunan = ${totalTghTh}`
+        });
       } else if (dataPembayaranUser.length <= 0) {
-        conn.sendMessage(msg.key.remoteJid, `data pembayaran siswa atas nama ${userExist[1]} tidak ditemukan silahkan konfirmasi ke tu keuangan dengan kwitansi pembayaran`, MessageType.text)
+        conn.sendMessage(msg.key.remoteJid, {
+          text: `data pembayaran siswa atas nama ${userExist[1]} tidak ditemukan silahkan konfirmasi ke tu keuangan dengan kwitansi pembayaran`
+        })
       }
     }
     if (option[0].toLowerCase() == '#pendaftaran') {
-      conn.sendMessage(msg.key.remoteJid, `silahkan isi folmulir berikut ini!.\ncopy, kemudian ganti sesuai data calon siswa\njangan mengubah apapun kecuali data calon siswa`, MessageType.text)
+      conn.sendMessage(msg.key.remoteJid, {
+        text: `silahkan isi folmulir berikut ini!.\ncopy, kemudian ganti sesuai data calon siswa\njangan mengubah apapun kecuali data calon siswa`
+      })
       setTimeout(function() {
         conn.sendMessage(msg.key.remoteJid,
-          `!formulirppdb\n\n*DATA SISWA*\n\nNO KK\t\t:no kk calon siswa\nNO NIK\t\t:no NIK calon siswa\nnama\t\t\t:nama calon siswa\ntempat lahir\t:tempat lahir calon siswa\ntanggal lahir\t :tanggal lahir calon siswa\nsekolah asal\t:sekolah asal calon siswa\nalamat\t\t:alamat calon siswa\nDomisili\t\t:Domisili calon siswa\nAnak ke\t\t\t:nomor\nJumlah Saudara\t\t\t:nomor\nCita-cita\t\t:cita-cita calon siswa\nHobi\t\t\t:hobi calon siswa\nmasuk kelas\t:kelas\n\n*DATA ORANG TUA*\n*DATA AYAH*\nno NIK\t\t\t\t:no NIK ayah\nnama\t\t\t:nama ayah\ntempat lahir\t:tempat lahir ayah\ntanggal lahir\t :tanggal lahir ayah\nalamat\t\t\t:alamat ayah\npendidikan terakhir\t:pendidikan ayah\npekerjaan\t\t:pekerjaan ayah\npenghasilan\t\t:penghasilan ayah\nDomisili\t\t:Domisili ayah\n\n*DATA IBU*\nno NIK\t\t :no NIK ibu\nnama\t\t\t:nama ibu\ntempat lahir\t:tempat lahir ibu\ntanggal lahir\t :tanggal lahir ibu\nalamat\t\t\t:alamat ibu\npendidikan terakhir\t:pendidikan ibu\npekerjaan\t\t:pekerjaan ibu\npenghasilan\t\t:penghasilan ibu\nDomisili\t\t:Domisili ibu\n\n*DATA WALI* (jika ada)\nNama\t\t\t:nama wali\nAlamat\t\t:alamat wali\nKontak\t\t\t:kontak (no hp/wa/email/dll)\n\n*catatan*\n- pastikan data di atas benar sesuai *KK* dan akte kelahiran *siswa*\n- 1 nomor hanya bisa digunakan 1 kali pendaftaran.\n`, MessageType.text)
+          {
+            text: `!formulirppdb\n\n*DATA SISWA*\n\nNO KK\t\t:no kk calon siswa\nNO NIK\t\t:no NIK calon siswa\nnama\t\t\t:nama calon siswa\ntempat lahir\t:tempat lahir calon siswa\ntanggal lahir\t :tanggal lahir calon siswa\nsekolah asal\t:sekolah asal calon siswa\nalamat\t\t:alamat calon siswa\nDomisili\t\t:Domisili calon siswa\nAnak ke\t\t\t:nomor\nJumlah Saudara\t\t\t:nomor\nCita-cita\t\t:cita-cita calon siswa\nHobi\t\t\t:hobi calon siswa\nmasuk kelas\t:kelas\n\n*DATA ORANG TUA*\n*DATA AYAH*\nno NIK\t\t\t\t:no NIK ayah\nnama\t\t\t:nama ayah\ntempat lahir\t:tempat lahir ayah\ntanggal lahir\t :tanggal lahir ayah\nalamat\t\t\t:alamat ayah\npendidikan terakhir\t:pendidikan ayah\npekerjaan\t\t:pekerjaan ayah\npenghasilan\t\t:penghasilan ayah\nDomisili\t\t:Domisili ayah\n\n*DATA IBU*\nno NIK\t\t :no NIK ibu\nnama\t\t\t:nama ibu\ntempat lahir\t:tempat lahir ibu\ntanggal lahir\t :tanggal lahir ibu\nalamat\t\t\t:alamat ibu\npendidikan terakhir\t:pendidikan ibu\npekerjaan\t\t:pekerjaan ibu\npenghasilan\t\t:penghasilan ibu\nDomisili\t\t:Domisili ibu\n\n*DATA WALI* (jika ada)\nNama\t\t\t:nama wali\nAlamat\t\t:alamat wali\nKontak\t\t\t:kontak (no hp/wa/email/dll)\n\n*catatan*\n- pastikan data di atas benar sesuai *KK* dan akte kelahiran *siswa*\n- 1 nomor hanya bisa digunakan 1 kali pendaftaran.\n`
+          })
       }, 2000);
     }
   }
