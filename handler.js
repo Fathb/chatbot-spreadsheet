@@ -4,6 +4,7 @@ const fs = require("fs");
 const { MessageType } = require("@adiwajshing/baileys");
 let helper = require("./helper");
 let { sheetName } = require("./config/config.json");
+let tmp = require("./config/templateMsg");
 
 // async function daftar(conn, msg, args) {
 //   if (!args) {
@@ -44,9 +45,17 @@ module.exports = {
     let res = await ss.addData(sheet + "!C2", data);
     conn.sendMessage(msg.key.remoteJid, { text: res.statusText });
   },
-  async info(){
+  async info() {
     console.log("menu info belum di buat");
-  }
+  },
+  async panduan(conn, msg) {
+    tmp = await tmp.map((t) => "ketik :*" + t[0] + "* \n" + t[2] + "\n_____________");
+    tmp = await tmp.join("\n");
+    let pesan =
+      "berikut ini adalah format pesan dan penjelasannta untuk menggunakan bot ini\n\n\n" +
+      tmp;
+    conn.sendMessage(msg.key.remoteJid, { text: pesan });
+  },
   // daftar,
   // async formulir(conn, msg, data) {
   //   var noHP = msg.key.remoteJid.split("@")[0];
