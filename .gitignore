@@ -2,3 +2,4 @@ node_modules/*
 *.json
 .env
 !package.json
+!config/config.json
