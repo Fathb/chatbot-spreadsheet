@@ -2,7 +2,6 @@ const fetch = require("node-fetch");
 const { ss } = require("./spreadsheet");
 const fs = require("fs");
 const { MessageType } = require("@adiwajshing/baileys");
-let helper = require("./helper");
 let { sheetName } = require("./config/config.json");
 let tmp = require("./config/templateMsg");
 
@@ -49,7 +48,9 @@ module.exports = {
     console.log("menu info belum di buat");
   },
   async panduan(conn, msg) {
-    tmp = await tmp.map((t) => "ketik :*" + t[0] + "* \n" + t[2] + "\n_____________");
+    tmp = await tmp.map(
+      (t) => "ketik :*" + t[0] + "* \n" + t[2] + "\n_____________"
+    );
     tmp = await tmp.join("\n");
     let pesan =
       "berikut ini adalah format pesan dan penjelasannta untuk menggunakan bot ini\n\n\n" +

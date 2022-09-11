@@ -1,29 +1,29 @@
 {
- "name": "chatbot",
- "version": "1.0.0",
- "description": "whatsapp chatbot by Ngaji Ngoding",
- "main": "index.js",
- "scripts": {
-  "start": "nodemon index.js"
- },
- "repository": {
-  "type": "git",
-  "url": "git+https://github.com/Fathb/chatbot.git"
- },
- "keywords": [
-  "whatsapp",
-  "bot"
- ],
- "author": "Ngaji Ngoding",
- "license": "ISC",
- "bugs": {
-  "url": "https://github.com/Fathb/chatbot/issues"
- },
- "homepage": "https://github.com/Fathb/chatbot#readme",
- "dependencies": {
-  "@adiwajshing/baileys": "^4.4.0",
-  "googleapis": "^91.0.0",
-  "node-fetch": "^2.6.7",
-  "qrcode-terminal": "^0.12.0"
- }
+  "name": "chatbot",
+  "version": "1.0.0",
+  "description": "whatsapp chatbot by Ngaji Ngoding",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Fathb/chatbot.git"
+  },
+  "keywords": [
+    "whatsapp",
+    "bot"
+  ],
+  "author": "Ngaji Ngoding",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fathb/chatbot/issues"
+  },
+  "homepage": "https://github.com/Fathb/chatbot#readme",
+  "dependencies": {
+    "@adiwajshing/baileys": "^4.4.0",
+    "googleapis": "^91.0.0",
+    "node-fetch": "^2.6.7",
+    "qrcode-terminal": "^0.12.0"
+  }
 }

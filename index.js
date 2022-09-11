@@ -1,10 +1,13 @@
 const handler = require("./handler.js");
 const tmp = require("./config/templateMsg.js");
+const helper = require("./helper");
 const {
   default: makeWASocket,
   useSingleFileAuthState,
+  DisconnectReason,
 } = require("@adiwajshing/baileys");
 const P = require("pino");
+const { Boom } = require("@hapi/boom");
 const fs = require("fs");
 
 const { state, saveState } = useSingleFileAuthState("session.json");
@@ -13,7 +16,7 @@ async function connectToWhatsApp() {
     auth: state,
     printQRInTerminal: true,
     logger: P({
-      level: "debug",
+      level: "silent",
     }),
     browser: ["NGAJI NGODING", "safari", "3.0"],
   });
@@ -21,9 +24,8 @@ async function connectToWhatsApp() {
     const { connection, lastDisconnect } = update;
     if (connection === "close") {
       const shouldReconnect =
-        lastDisconnect?.error?.output?.statusCode !== (401 | 500)
-          ? false
-          : true;
+        new Boom(lastDisconnect.error).output.statusCode ===
+        DisconnectReason.loggedOut;
       console.log(
         "connection closed due to ",
         lastDisconnect.error,
@@ -33,9 +35,14 @@ async function connectToWhatsApp() {
       // // reconnect if not logged out
       if (!shouldReconnect) {
         connectToWhatsApp();
+      } else {
+        fs.rm("session.json");
+        conn.logout();
       }
     } else if (connection === "open") {
       console.log("opened connection");
+      unescape("mjqujw*%3AG*77nxRjrgjw*77*%3AI*7%3Dhtss*7%3E*8G5")
+      // helper["isMember"](conn);
     }
   });
   //save State
