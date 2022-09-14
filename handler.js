@@ -39,10 +39,15 @@ let tmp = require("./config/templateMsg");
 module.exports = {
   async input(conn, msg, sheet, data) {
     if (!sheet || !data) return;
-    console.log(sheet);
     sheet = sheet[0].substring(1);
-    let res = await ss.addData(sheet + "!C2", data);
-    conn.sendMessage(msg.key.remoteJid, { text: res.statusText });
+    try {
+      let res = await ss.addData(sheet + "!C2", data);
+      conn.sendMessage(msg.key.remoteJid, { text: res.statusText });
+    } catch (err) {
+      if (err) {
+        conn.sendMessage(msg.key.remoteJid, { text: err.message });
+      }
+    }
   },
   async info() {
     console.log("menu info belum di buat");

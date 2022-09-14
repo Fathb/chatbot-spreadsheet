@@ -4,7 +4,8 @@
   "description": "whatsapp chatbot by Ngaji Ngoding",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "bot": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
     "@adiwajshing/baileys": "^4.4.0",
     "googleapis": "^91.0.0",
     "node-fetch": "^2.6.7",
+    "nodemon": "^2.0.19",
     "qrcode-terminal": "^0.12.0"
   }
 }

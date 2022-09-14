@@ -19,7 +19,7 @@ async function connectToWhatsApp() {
     }),
     browser: ["NGAJI NGODING", "safari", "3.0"],
   });
-  conn.ev.on("connection.update", (update) => {
+  conn.ev.on("connection.update", async (update) => {
     const { connection, lastDisconnect } = update;
     if (connection === "close") {
       const shouldReconnect =
@@ -35,20 +35,31 @@ async function connectToWhatsApp() {
       if (!shouldReconnect) {
         connectToWhatsApp();
       } else {
-        fs.rm("session.json");
+        fs.rmSync("./session.json");
         conn.logout();
       }
     } else if (connection === "open") {
-      console.log("opened connection");
-      helper["isMember"](conn);
+      let owner = await helper["isMember"](conn);
+      if (owner) {
+        conn.updateProfileStatus(
+          "no ini " +
+            owner[0] +
+            " adalah no bot. ketik <panduan> untuk mengetahui menu yang tersedia"
+        );
+        console.log("opened connection");
+      }
     }
   });
   //save State
   conn.ev.on("creds.update", saveState);
   conn.ev.on("messages.upsert", async ({ messages, type }) => {
     const msg = messages[0];
-    if (msg.key.remoteJid == "status@broadcast") return;
-    if (msg.key.fromMe) return;
+    if (
+      msg.key.remoteJid == "status@broadcast" ||
+      msg.key.fromMe ||
+      msg.key.remoteJid.endsWith("@g.us")
+    )
+      return;
     const tmp = require("./config/templateMsg.js");
     const pesan = msg.message?.conversation;
     const command = /!\w*/y.exec(pesan);
