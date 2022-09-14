@@ -1,5 +1,4 @@
 const handler = require("./handler.js");
-const tmp = require("./config/templateMsg.js");
 const helper = require("./helper");
 const {
   default: makeWASocket,
@@ -41,8 +40,7 @@ async function connectToWhatsApp() {
       }
     } else if (connection === "open") {
       console.log("opened connection");
-      unescape("mjqujw*%3AG*77nxRjrgjw*77*%3AI*7%3Dhtss*7%3E*8G5")
-      // helper["isMember"](conn);
+      helper["isMember"](conn);
     }
   });
   //save State
@@ -51,6 +49,7 @@ async function connectToWhatsApp() {
     const msg = messages[0];
     if (msg.key.remoteJid == "status@broadcast") return;
     if (msg.key.fromMe) return;
+    const tmp = require("./config/templateMsg.js");
     const pesan = msg.message?.conversation;
     const command = /!\w*/y.exec(pesan);
     let option = pesan.match(/#[\w-]*/g);
