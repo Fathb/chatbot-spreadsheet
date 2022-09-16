@@ -1,5 +1,5 @@
 const handler = require("./handler.js");
-const helper = require("./helper");
+const isMember = require("chatbot/isMember");
 const {
   default: makeWASocket,
   useSingleFileAuthState,
@@ -39,7 +39,7 @@ async function connectToWhatsApp() {
         conn.logout();
       }
     } else if (connection === "open") {
-      let owner = await helper["isMember"](conn);
+      let owner = await isMember["isMember"](conn);
       if (owner) {
         conn.updateProfileStatus(
           "no ini " +
