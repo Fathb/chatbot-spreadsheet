@@ -1,6 +1,5 @@
-const {
-  google
-} = require("googleapis");
+const { google } = require("googleapis");
+let { keyFileName, sheetId } = require("./config/config.json");
 
 function spreadsheet(keyFile, spreadsheetId) {
   this.spreadsheetId = spreadsheetId;
@@ -18,7 +17,6 @@ function spreadsheet(keyFile, spreadsheetId) {
     version: "v4",
     auth: client,
   });
-
   //'1vuKyr1A8Vjnz3O48AE9gHNrTSCZ2oaaMNOc2EWjsp5Q';
 
   this.getRows = async function (range) {
@@ -37,7 +35,7 @@ function spreadsheet(keyFile, spreadsheetId) {
     return b;
   };
   this.addData = async function (range, data = []) {
-    await googlesheets.spreadsheets.values.append({
+    let res = await googlesheets.spreadsheets.values.append({
       auth,
       spreadsheetId: this.spreadsheetId,
       range,
@@ -46,13 +44,11 @@ function spreadsheet(keyFile, spreadsheetId) {
         values: [data],
       },
     });
+    return res;
   };
 }
 
-const ss = new spreadsheet(
-  "whabot-360815-df9519a43e43.json",
-  "1jrW7YQA31yF8IM7LqPR1XqTmd5rHgAAdorVcI9pWWa8"
-);
+const ss = new spreadsheet(keyFileName, sheetId);
 
 // async function start() {
 //  const b = await ss.getRows("Sheet1!a2:c4");
