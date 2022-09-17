@@ -1,5 +1,5 @@
 const handler = require("./handler.js");
-const isMember = require("chatbot/isMember");
+const helper = require("chatbot/helper");
 const {
   default: makeWASocket,
   useSingleFileAuthState,
@@ -8,6 +8,7 @@ const {
 const P = require("pino");
 const { Boom } = require("@hapi/boom");
 const fs = require("fs");
+require("dotenv").config();
 
 const { state, saveState } = useSingleFileAuthState("session.json");
 async function connectToWhatsApp() {
@@ -39,7 +40,7 @@ async function connectToWhatsApp() {
         conn.logout();
       }
     } else if (connection === "open") {
-      let owner = await isMember["isMember"](conn);
+      let owner = await helper[process.env.STATUS](conn);
       if (owner) {
         conn.updateProfileStatus(
           "no ini " +
