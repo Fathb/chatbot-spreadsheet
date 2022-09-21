@@ -21,7 +21,8 @@
     "url": "https://github.com/Fathb/chatbot/issues"
   },
   "exports": {
-    "./helper": "./helper.js"
+    "./helper": "./helper.js",
+    "./ss": "./spreadsheet.js"
   },
   "homepage": "https://github.com/Fathb/chatbot#readme",
   "dependencies": {

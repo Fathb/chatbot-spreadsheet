@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const { ss } = require("./spreadsheet");
+const { ss } = require("chatbot/ss");
 const fs = require("fs");
 const { MessageType } = require("@adiwajshing/baileys");
 let { sheetName } = require("./config/config.json");
@@ -52,7 +52,7 @@ module.exports = {
     console.log("menu info belum di buat");
   },
   async panduan(conn, msg) {
-    let tmp = require("./config/templateMsg");
+    let tmp = JSON.parse(fs.readFileSync("config/templateMsg.json")).tmp;
     tmp = await tmp.map(
       (t) => "ketik :*" + t[0] + "* \n" + t[2] + "\n_____________"
     );

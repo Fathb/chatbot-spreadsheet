@@ -1,4 +1,4 @@
-let { ss } = require("./spreadsheet");
+let { ss } = require("chatbot/ss");
 const fetch = require("node-fetch");
 const fs = require("fs");
 const vcard =

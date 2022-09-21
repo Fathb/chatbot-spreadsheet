@@ -61,7 +61,7 @@ async function connectToWhatsApp() {
       msg.key.remoteJid.endsWith("@g.us")
     )
       return;
-    const tmp = require("./config/templateMsg.js");
+    const tmp = JSON.parse(fs.readFileSync("config/templateMsg.json")).tmp;
     const pesan = msg.message?.conversation;
     const command = /!\w*/y.exec(pesan);
     let option = pesan.match(/#[\w-]*/g);
