@@ -1,5 +1,6 @@
 const handler = require("./handler.js");
 const helper = require("chatbot/helper");
+const { ss } = require("chatbot/ss");
 const {
   default: makeWASocket,
   useSingleFileAuthState,
@@ -71,6 +72,8 @@ async function connectToWhatsApp() {
         return d.replace(/: |:/gm, "");
       });
     }
+    let dataAr = await ss.getRows("menu!c2:d");
+    tmp = [...tmp, ...dataAr];
     for (var i = 0; i < tmp.length; i++) {
       if (pesan === tmp[i][0]) {
         conn.sendMessage(msg.key.remoteJid, { text: tmp[i][1] });

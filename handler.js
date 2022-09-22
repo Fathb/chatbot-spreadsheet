@@ -1,8 +1,8 @@
-const fetch = require("node-fetch");
-const { ss } = require("chatbot/ss");
 const fs = require("fs");
-const { MessageType } = require("@adiwajshing/baileys");
+const { ss } = require("chatbot/ss");
 let { sheetName } = require("./config/config.json");
+const { MessageType } = require("@adiwajshing/baileys");
+const fetch = require("node-fetch");
 
 // async function daftar(conn, msg, args) {
 //   if (!args) {
@@ -53,6 +53,8 @@ module.exports = {
   },
   async panduan(conn, msg) {
     let tmp = JSON.parse(fs.readFileSync("config/templateMsg.json")).tmp;
+    let dataAr = await ss.getRows("menu!c2:e");
+    tmp = [...tmp, ...dataAr];
     tmp = await tmp.map(
       (t) => "ketik :*" + t[0] + "* \n" + t[2] + "\n_____________"
     );
