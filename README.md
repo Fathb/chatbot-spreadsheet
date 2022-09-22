@@ -20,10 +20,10 @@ Di sini saya asumsikan kalian sudah memiliki akun google atau google yang aktif
 10. Pada sidebar klick **Credentials;**
 11. klick **CREATE CREDENTIALS ** di tengah atas dan pilih service account isi nama dan id nya sampai selesai;
 12. Copy email yang ada kemudian klick;
-13. Ke tab **key **dan **add key -> create new key -> json;**
+13. Ke tab **key** dan **add key -> create new key -> json;**
 14. Proses 13 akan mendownload file json simpan baik-baik filenya;
 15. Kemudian buka file **spreadsheet** yang dibuat tadi kemudian **share;**
-16. Tambahkan **email **yang di **copy **dan buat role nya sebagai editor klick **share;**
+16. Tambahkan **email** yang di **copy** dan buat role nya sebagai editor klick **share;**
 
 **Menjalankan script bot nya**
 
