@@ -3,6 +3,7 @@ const { ss } = require("chatbot/ss");
 let { sheetName } = require("./config/config.json");
 const { MessageType } = require("@adiwajshing/baileys");
 const fetch = require("node-fetch");
+const { table } = require("console");
 
 // async function daftar(conn, msg, args) {
 //   if (!args) {
@@ -38,7 +39,6 @@ const fetch = require("node-fetch");
 module.exports = {
   async input(conn, msg, sheet, data) {
     if (!sheet || !data) return;
-    sheet = sheet[0].substring(1);
     try {
       let res = await ss.addData(sheet + "!C2", data);
       conn.sendMessage(msg.key.remoteJid, { text: res.statusText });
@@ -48,14 +48,48 @@ module.exports = {
       }
     }
   },
-  async info() {
-    console.log("menu info belum di buat");
+  async info(conn, msg, sheet, data) {
+    if (!sheet) {
+      conn.sendMessage(msg.key.remoteJid, {
+        text: "info apa yang anda minta?",
+      });
+    } else {
+      try {
+        let arrObj = [];
+        let resultArr = await ss.getRows(sheet);
+        let headers = resultArr[0];
+        resultArr.shift();
+        resultArr.forEach((result, n) => {
+          let dataObj = {};
+          headers.forEach((key, idx) => {
+            dataObj[key] = result[idx];
+          });
+          arrObj[n] = dataObj;
+        });
+        if (!data) {
+          arrObj = arrObj.map(
+            (el, n) =>
+              `${n}.\n${JSON.stringify(el).replace(
+                /,/gm,
+                "\n\n"
+              )}\n__________________________\n`
+          );
+          arrObj = arrObj.join("");
+          conn.sendMessage(msg.key.remoteJid, { text: arrObj });
+        } else {
+          for (let val of data) {
+            console.log(val);
+            arrObj = arrObj.filter((el) => Object.values(el).includes(val));
+          }
+          console.log(arrObj);
+        }
+      } catch (error) {
+        conn.sendMessage(msg.key.remoteJid, { text: error.message });
+      }
+    }
   },
-  async panduan(conn, msg) {
-    let tmp = JSON.parse(fs.readFileSync("config/templateMsg.json")).tmp;
-    let dataAr = await ss.getRows("menu!c2:e");
-    tmp = [...tmp, ...dataAr];
-    tmp = await tmp.map(
+  async panduan(conn, msg, ...tmp) {
+    tmp = await tmp[2].map(
       (t) => "ketik :*" + t[0] + "* \n" + t[2] + "\n_____________"
     );
     tmp = await tmp.join("\n");

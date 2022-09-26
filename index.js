@@ -62,18 +62,25 @@ async function connectToWhatsApp() {
       msg.key.remoteJid.endsWith("@g.us")
     )
       return;
-    const tmp = JSON.parse(fs.readFileSync("config/templateMsg.json")).tmp;
+    let tmp = JSON.parse(fs.readFileSync("config/templateMsg.json")).tmp;
     const pesan = msg.message?.conversation;
-    const command = /!\w*/y.exec(pesan);
+    //const command = /!\w*/y.exec(pesan);
     let option = pesan.match(/#[\w-]*/g);
-    let data = await pesan.match(/:[\w .']*/gm);
+    if (option) {
+      option = option[0].substring(1);
+    }
+    let data = pesan.match(/(?<=:\s*)(([\w\d\.]+)\s*[\w\d\.]*\s*[\w\d\.]*)?/gm);
+    console.log(data);
     if (data) {
-      data = await data.map((d) => {
-        return d.replace(/: |:/gm, "");
+      data = data.map((d) => {
+        return d.replace(/: */gm, "");
       });
     }
-    let dataAr = await ss.getRows("menu!c2:d");
-    tmp = [...tmp, ...dataAr];
+    console.log(data);
+    let dataAr = await ss.getRows("menu!c2:e");
+    if (dataAr && dataAr.length > 0) {
+      tmp = [...tmp, ...dataAr];
+    }
     for (var i = 0; i < tmp.length; i++) {
       if (pesan === tmp[i][0]) {
         conn.sendMessage(msg.key.remoteJid, { text: tmp[i][1] });
@@ -81,7 +88,7 @@ async function connectToWhatsApp() {
     }
 
     if (handler[pesan.split(" ")[0]]) {
-      handler[pesan.split(" ")[0]](conn, msg, option, data);
+      handler[pesan.split(" ")[0]](conn, msg, option, data, tmp);
     }
     // let listCmd = [
     //   "!daftar",
