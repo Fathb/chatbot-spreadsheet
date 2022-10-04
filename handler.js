@@ -3,7 +3,6 @@ const { ss } = require("chatbot/ss");
 let { sheetName } = require("./config/config.json");
 const { MessageType } = require("@adiwajshing/baileys");
 const fetch = require("node-fetch");
-const { table } = require("console");
 
 // async function daftar(conn, msg, args) {
 //   if (!args) {
@@ -69,19 +68,32 @@ module.exports = {
         if (!data) {
           arrObj = arrObj.map(
             (el, n) =>
-              `${n}.\n${JSON.stringify(el).replace(
-                /,/gm,
-                "\n\n"
-              )}\n__________________________\n`
+              `(${n + 1}) _____________\n${JSON.stringify(el)
+                .replace(/,/gm, "\n")
+                .replace("{", "")
+                .replace("}", "")}\n\n`
           );
           arrObj = arrObj.join("");
           conn.sendMessage(msg.key.remoteJid, { text: arrObj });
         } else {
           for (let val of data) {
-            console.log(val);
             arrObj = arrObj.filter((el) => Object.values(el).includes(val));
           }
-          console.log(arrObj);
+          if (arrObj.length > 0) {
+            arrObj = arrObj.map(
+              (el, n) =>
+                `(${n + 1}) _____________\n${JSON.stringify(el)
+                  .replace(/,/gm, "\n")
+                  .replace("{", "")
+                  .replace("}", "")}\n\n`
+            );
+            arrObj = arrObj.join("");
+            conn.sendMessage(msg.key.remoteJid, { text: arrObj });
+          } else {
+            conn.sendMessage(msg.key.remoteJid, {
+              text: "tidak ada data yang ditemukan",
+            });
+          }
         }
       } catch (error) {
         conn.sendMessage(msg.key.remoteJid, { text: error.message });

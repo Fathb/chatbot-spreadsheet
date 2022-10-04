@@ -69,14 +69,10 @@ async function connectToWhatsApp() {
     if (option) {
       option = option[0].substring(1);
     }
-    let data = pesan.match(/(?<=:\s*)(([\w\d\.]+)\s*[\w\d\.]*\s*[\w\d\.]*)?/gm);
-    console.log(data);
+    let data = pesan.match(/(?<=:\s*)[\w\d\.@]+ *[\w\d\.]* *[\w\d\.]*/gm);
     if (data) {
-      data = data.map((d) => {
-        return d.replace(/: */gm, "");
-      });
+      data = data.map((d) => d.trimEnd());
     }
-    console.log(data);
     let dataAr = await ss.getRows("menu!c2:e");
     if (dataAr && dataAr.length > 0) {
       tmp = [...tmp, ...dataAr];
