@@ -5,3 +5,4 @@ node_modules/*
 !package.json
 !config/*.json
 !nodemon.json
+index1.js
