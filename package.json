@@ -4,8 +4,9 @@
   "description": "whatsapp chatbot by Ngaji Ngoding",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "bot": "node index.js"
+    "dev": "nodemon index1.js",
+    "bot": "node index.js",
+    "bot terminal": "node index.js terminalbot"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,8 @@
   },
   "exports": {
     "./helper": "./helper.js",
-    "./ss": "./spreadsheet.js"
+    "./ss": "./spreadsheet.js",
+    "./term": "./lib/terminal.js"
   },
   "homepage": "https://github.com/Fathb/chatbot#readme",
   "dependencies": {
