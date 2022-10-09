@@ -50,7 +50,7 @@ Di sini saya asumsikan kalian sudah memiliki akun google atau google yang aktif
 6. bikin autorespon di spreadsheet <span style="color:red">new</span>
 7. ambil data dari spreadsheet <span style="color:red">new</span>
 8. cek nomor di terminal apakah aktif di akun wa (video menyusul) <span style="color:red">new</span>
-9. kirim pesan dari terminal (video menyusul) <<span style="color:red">new</span>
+9. kirim pesan dari terminal (video menyusul) <span style="color:red">new</span>
 
 **Cara input data**
 
@@ -67,3 +67,5 @@ Di sini saya asumsikan kalian sudah memiliki akun google atau google yang aktif
 
 [ambil data dari spreadsheer](https://youtu.be/3CyTAIvr354)
 [![thumb](http://i3.ytimg.com/vi/3CyTAIvr354/hqdefault.jpg)](https://youtu.be/3CyTAIvr354)
+
+[Buat Ngopi](https://saweria.co/fathb)
