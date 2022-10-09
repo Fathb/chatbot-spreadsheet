@@ -47,10 +47,10 @@ Di sini saya asumsikan kalian sudah memiliki akun google atau google yang aktif
 3. Input data ke spreadsheet;
 4. Bisa memilih sheet;
 5. Data yang ingin di input bebas (sesuai dengan kebutuhan)
-6. bikin autorespon di spreadsheet ==new==
-7. ambil data dari spreadsheet ==new==
-8. cek nomor di terminal apakah aktif di akun wa (video menyusul) ==new==
-9. kirim pesan dari terminal (video menyusul) ==new==
+6. bikin autorespon di spreadsheet <<span style="color:red">new</span>
+7. ambil data dari spreadsheet <<span style="color:red">new</span>
+8. cek nomor di terminal apakah aktif di akun wa (video menyusul) <<span style="color:red">new</span>
+9. kirim pesan dari terminal (video menyusul) <<span style="color:red">new</span>
 
 **Cara input data**
 
