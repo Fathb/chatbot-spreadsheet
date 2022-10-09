@@ -69,3 +69,4 @@ Di sini saya asumsikan kalian sudah memiliki akun google atau google yang aktif
 [![thumb](http://i3.ytimg.com/vi/3CyTAIvr354/hqdefault.jpg)](https://youtu.be/3CyTAIvr354)
 
 [Buat Ngopi](https://saweria.co/fathb)
+[donate pake Dana](https://link.dana.id/qr/35gzimg9)
