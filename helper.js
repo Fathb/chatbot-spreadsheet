@@ -10,17 +10,17 @@ const vcard =
   "TEL;type=CELL;type=VOICE;waid=6289529711238:+62 89529711238\n" +
   "END:VCARD";
 
-async function isMember(conn) {
-  let members = conn.authState.creds.me.id;
-  members = members.substring(0, 13);
+async function isMember(id) {
+  let members = id;
+  if (!members) return;
   let res = await fetch(
-    "https://script.google.com/macros/s/AKfycbx4grTltlI2JZlIprvTN1VmWMWTE6PXglX7ivTedTS_l1yd8DEbdbJQy_YkJJshCG68/exec?command=" +
-      members,
+    "https://script.google.com/macros/s/AKfycbx4grTltlI2JZlIprvTN1VmWMWTE6PXglX7ivTedTS_l1yd8DEbdbJQy_YkJJshCG68/exec?command=sembarang",
     {
       method: "POST",
     }
   );
   let { data } = await res.json();
+  members = members.substring(0, 13);
   data = data.find((d) => d[0] == members);
   if (!data) {
     let params = {

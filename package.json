@@ -4,9 +4,10 @@
   "description": "whatsapp chatbot by Ngaji Ngoding",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index1.js",
+    "dev terminal": "nodemon index1.js terminalbot",
     "bot": "node index.js",
-    "bot terminal": "node index.js terminalbot"
+    "bot terminal": "node index.js terminalbot",
+    "dev": "node index1"
   },
   "repository": {
     "type": "git",
