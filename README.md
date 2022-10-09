@@ -46,7 +46,11 @@ Di sini saya asumsikan kalian sudah memiliki akun google atau google yang aktif
 2. Membuat template pesan autorespon (key dan balasan yang diinginkan);
 3. Input data ke spreadsheet;
 4. Bisa memilih sheet;
-5. Data yang ingin di input bebas (sesuai dengan kebutuhan
+5. Data yang ingin di input bebas (sesuai dengan kebutuhan)
+6. bikin autorespon di spreadsheet ==new==
+7. ambil data dari spreadsheet ==new==
+8. cek nomor di terminal apakah aktif di akun wa (video menyusul) ==new==
+9. kirim pesan dari terminal (video menyusul) ==new==
 
 **Cara input data**
 
@@ -54,3 +58,12 @@ Di sini saya asumsikan kalian sudah memiliki akun google atau google yang aktif
 
 1. Buat key dan template folmulir;
 2. Untuk value data awali dengan titik dua (:)
+
+[**video tutorialnya**](https://youtu.be/b5GwwbGStHc)
+[![cara pakai](http://i3.ytimg.com/vi/b5GwwbGStHc/hqdefault.jpg)](https://youtu.be/b5GwwbGStHc)
+
+[membuat auto response di spreadsheet](https://youtu.be/vZsK3uJJaeA)
+[![with thumb](http://i3.ytimg.com/vi/vZsK3uJJaeA/hqdefault.jpg)](https://youtu.be/vZsK3uJJaeA)
+
+[ambil data dari spreadsheer](https://youtu.be/3CyTAIvr354)
+[![thumb](http://i3.ytimg.com/vi/3CyTAIvr354/hqdefault.jpg)](https://youtu.be/3CyTAIvr354)
