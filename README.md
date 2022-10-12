@@ -68,6 +68,11 @@ Di sini saya asumsikan kalian sudah memiliki akun google atau google yang aktif
 [ambil data dari spreadsheer](https://youtu.be/3CyTAIvr354)
 [![thumb](http://i3.ytimg.com/vi/3CyTAIvr354/hqdefault.jpg)](https://youtu.be/3CyTAIvr354)
 
+[bot terminal](https://youtu.be/DVcqQzKDrds)
+<div class="embed-responsive embed-responsive-16by20">
+<iframe width="400" height="500" src="https://www.youtube.com/embed/DVcqQzKDrds" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 - [Buat Ngopi](https://saweria.co/fathb)
 
 - [donate pake Dana](https://link.dana.id/qr/35gzimg9)
