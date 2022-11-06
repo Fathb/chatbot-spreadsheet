@@ -1,8 +1,5 @@
 const fs = require("fs");
 const { ss } = require("chatbot/ss");
-let { sheetName } = require("./config/config.json");
-const { MessageType } = require("@adiwajshing/baileys");
-const fetch = require("node-fetch");
 
 // async function daftar(conn, msg, args) {
 //   if (!args) {
