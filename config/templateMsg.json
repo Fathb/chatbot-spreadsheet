@@ -4,12 +4,6 @@
       "menu bot",
       "ketik *panduan* untuk mengetagui apa saja menu yang tersedia",
       "untuk mendapatkan info tentang menu dari bot"
-    ],
-    ["assalamualaikum", "waalaikumsalam", "test doan"],
-    [
-      "form tourney",
-      "input #data-peserta\n\nnama :<nama anda>\nemail : <email anda>\nalamat : <alamat anda>\n\ncopy pesan ini dan ganti datanya",
-      "formulir pendaftaran"
     ]
   ]
 }

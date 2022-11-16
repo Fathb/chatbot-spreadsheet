@@ -37,7 +37,9 @@ module.exports = {
     if (!sheet || !data) return;
     try {
       let res = await ss.addData(sheet + "!C2", data);
-      conn.sendMessage(msg.key.remoteJid, { text: res.statusText });
+      conn.sendMessage(msg.key.remoteJid, {
+        text: res.statusText + " data " + sheet + " berhasil di input",
+      });
     } catch (err) {
       if (err) {
         conn.sendMessage(msg.key.remoteJid, { text: err.message });
