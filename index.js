@@ -5,7 +5,7 @@ const {
   default: makeWASocket,
     useMultiFileAuthState,
     DisconnectReason,
-  } = require("@adiwajshing/baileys");
+  } = require("@whiskeysockets/baileys");
   const P = require("pino");
   const {
     Boom
