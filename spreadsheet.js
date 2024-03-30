@@ -1,5 +1,5 @@
 const { google } = require("googleapis");
-let { keyFileName, sheetId } = require("./config/config.json");
+let { useSpreadsheet, keyFileName, sheetId } = require("./config/config.json");
 
 function spreadsheet(keyFile, spreadsheetId) {
   this.spreadsheetId = spreadsheetId;
@@ -48,7 +48,7 @@ function spreadsheet(keyFile, spreadsheetId) {
   };
 }
 
-const ss = new spreadsheet(keyFileName, sheetId);
+const ss = useSpreadsheet ? new spreadsheet(keyFileName, sheetId) : null;
 
 // async function start() {
 //  const b = await ss.getRows("Sheet1!a2:c4");
